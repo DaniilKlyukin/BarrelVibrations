@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarrelVibrations", "BarrelVibrations\BarrelVibrations.csproj", "{B0C120C9-C387-4B81-B0FA-1DE9305604D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControls", "CustomControls\CustomControls.csproj", "{07909092-0D6F-4842-AA14-AFC873E8B3DA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modelling", "Modelling\Modelling.csproj", "{E444394D-140C-4B60-B91A-BC759C7C1B76}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visualization", "Visualization\Visualization.csproj", "{3B650EF1-8C5F-4FC0-8975-CF66D562E3B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InletBallisticLibrary", "InletBallisticLibrary\InletBallisticLibrary.csproj", "{8C320A7F-98D1-427D-BD09-1BBE03C48B3D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicLibraryWinForm", "BasicLibraryWinForm\BasicLibraryWinForm.csproj", "{ED459B34-71DB-45F7-A354-3AA44DDB4AEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0C120C9-C387-4B81-B0FA-1DE9305604D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0C120C9-C387-4B81-B0FA-1DE9305604D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0C120C9-C387-4B81-B0FA-1DE9305604D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0C120C9-C387-4B81-B0FA-1DE9305604D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07909092-0D6F-4842-AA14-AFC873E8B3DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07909092-0D6F-4842-AA14-AFC873E8B3DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07909092-0D6F-4842-AA14-AFC873E8B3DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07909092-0D6F-4842-AA14-AFC873E8B3DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E444394D-140C-4B60-B91A-BC759C7C1B76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E444394D-140C-4B60-B91A-BC759C7C1B76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E444394D-140C-4B60-B91A-BC759C7C1B76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E444394D-140C-4B60-B91A-BC759C7C1B76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B650EF1-8C5F-4FC0-8975-CF66D562E3B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B650EF1-8C5F-4FC0-8975-CF66D562E3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B650EF1-8C5F-4FC0-8975-CF66D562E3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B650EF1-8C5F-4FC0-8975-CF66D562E3B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C320A7F-98D1-427D-BD09-1BBE03C48B3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C320A7F-98D1-427D-BD09-1BBE03C48B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C320A7F-98D1-427D-BD09-1BBE03C48B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C320A7F-98D1-427D-BD09-1BBE03C48B3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED459B34-71DB-45F7-A354-3AA44DDB4AEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED459B34-71DB-45F7-A354-3AA44DDB4AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED459B34-71DB-45F7-A354-3AA44DDB4AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED459B34-71DB-45F7-A354-3AA44DDB4AEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1DAC20EB-B81C-4942-84B4-9F123CAACB45}
+	EndGlobalSection
+EndGlobal

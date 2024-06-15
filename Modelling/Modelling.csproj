@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ScottPlot" Version="4.1.63" />
+    <PackageReference Include="ScottPlot.WinForms" Version="4.1.63" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BasicLibraryWinForm\BasicLibraryWinForm.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="GMsh.Net">
+      <HintPath>..\GMSHDLL\GMsh.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="UnsafeEx">
+      <HintPath>..\GMSHDLL\UnsafeEx.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

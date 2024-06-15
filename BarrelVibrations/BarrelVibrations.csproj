@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Flee" Version="2.0.0" />
+    <PackageReference Include="GeneticSharp" Version="3.1.4" />
+    <PackageReference Include="ScottPlot" Version="4.1.63" />
+    <PackageReference Include="ScottPlot.WinForms" Version="4.1.63" />
+    <PackageReference Include="SharpGL" Version="3.1.1" />
+    <PackageReference Include="SharpGL.WinForms" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BasicLibraryWinForm\BasicLibraryWinForm.csproj" />
+    <ProjectReference Include="..\InletBallisticLibrary\InletBallisticLibrary.csproj" />
+    <ProjectReference Include="..\Modelling\Modelling.csproj" />
+    <ProjectReference Include="..\Visualization\Visualization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="GMsh.Net">
+      <HintPath>..\GMSHDLL\GMsh.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="UnsafeEx">
+      <HintPath>..\GMSHDLL\UnsafeEx.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ModelingObjects\EnvironmentFolder\WindFolder\WindVisualizationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ModelingObjects\EnvironmentFolder\WindFolder\WindForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="ViewForms\Common\TrackBarFileView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ViewForms\TemperatureDistributionsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
