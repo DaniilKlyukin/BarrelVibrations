@@ -111,7 +111,8 @@ namespace InletBallisticLibrary
                         ZArr[i] = x[PsiArr.Length + i];
                     }
 
-                    Pressure = GetP(PsiArr, W, Vsn, J0);
+                    //Pressure = GetPFromExp(W, vsn, J0, J1, J2); //TODO эксперимент!!!
+                    Pressure = GetP(PsiArr, W, Vsn, J0); 
                     Psn = GetPsn(Pressure, W, Vsn, J0, J1, J2);
                     Pkn = GetPkn(Psn, W, Vsn, J1);
                     Temperature = GetTemperature(Pressure, PsiArr, W);
@@ -144,10 +145,9 @@ namespace InletBallisticLibrary
 
                     var (j0, _) = Input.GetJ0(xsn, elementIntegrationSize, Xsn, J0Integral);
                     var (j1, _) = Input.GetJ1(xsn, elementIntegrationSize, xsn, Xsn, J1Integral);
-                    var (j2, _,_) = Input.GetJ2(xsn, elementIntegrationSize, Xsn, J2Integral, J2SubIntegral);
+                    var (j2, _, _) = Input.GetJ2(xsn, elementIntegrationSize, Xsn, J2Integral, J2SubIntegral);
 
-                    //(J0, J1, J2) = Input.GetJ(xsn, jPointsCount, xsn);
-
+                    //var p = GetPFromExp(W, vSn, j0, j1, j2);  // TODO эксперимент
                     var p = GetP(currentPsi, W, vSn, j0);
                     var p_sn = GetPsn(p, W, vSn, j0, j1, j2);
 
@@ -190,6 +190,14 @@ namespace InletBallisticLibrary
 
         public InletBallisticSolver(InletBallisticInput input, Environment environment, double[] meshXPoints)
         {
+            /*
+            // TODO эксперимент
+            var experiment = File.ReadAllLines("exps\\p1.txt").Select(r => r.Split("\t").Select(v => double.Parse(v)).ToArray()).ToArray();
+            var tExp = experiment.Select(v => v[0] * 1e-3).ToArray();
+            var pExp = experiment.Select(v => v[1] * 1e6).ToArray();
+            expPknSpline = LinearSpline.Interpolate(tExp, pExp);
+            // -------------------------------------------------
+            */
             Environment = environment;
             Input = input;
             _meshXPoints = meshXPoints;
@@ -294,6 +302,24 @@ namespace InletBallisticLibrary
 
             return psn * (1 + w / Input.q * J1) + w * FastMath.Pow2(v) / volume * (0.5 - J1);
         }
+        /*
+        // TODO эксперимент -----------------------------------------------
+        private LinearSpline expPknSpline;
+        private double GetPFromExp(double volume, double v, double J0, double J1, double J2)
+        {
+            var pkn = expPknSpline.Interpolate(Time);
+
+            var w = Input.Powders.Sum(powder => powder.w) + Input.wIgniter;
+
+            var psn = (pkn - w * FastMath.Pow2(v) / volume * (0.5 - J1)) / (1 + w / Input.q * J1);
+
+            var p = psn * (1 + w / Input.q * (J1 - J2)) - w * FastMath.Pow2(v) / volume * (J0 / 2 + J1 - J2 - 0.5);
+
+            return p;
+        }
+
+        // --------------------------------------------------------
+        */
 
         private double GetTemperature(double p, double[] psi, double volume)
         {
@@ -482,7 +508,8 @@ namespace InletBallisticLibrary
                     Pressure = Math.Max(Pressure * Math.Exp(-dt / t_p), Environment.Pressure);
                     Density = Math.Max(Density * Math.Exp(-dt / t_p), Environment.Density);
                     Psn = Math.Max(Psn * Math.Exp(-dt / t_p), Environment.Pressure);
-                    Pkn = Math.Max(Pkn * Math.Exp(-dt / t_p), Environment.Pressure);
+                    //Pkn = expPknSpline.Interpolate(Time); // TODO эксперимент
+                    Pkn = Math.Max(Pkn * Math.Exp(-dt / t_p), Environment.Pressure); 
                     Temperature = Math.Max(GetTemperature(Pressure, PsiArr, totalVolume), Environment.Temperature);
                 }
 
@@ -525,7 +552,7 @@ namespace InletBallisticLibrary
                         Pressures[i] * Math.Exp(-dt / t_p),
                         Environment.Pressure);
                     Temperatures[i] = Math.Max(
-                        GetTemperature(Pressures[i], PsiArr, totalVolume),
+                        Temperatures[i] * Math.Exp(-dt / t_p),
                         Environment.Temperature);
                     Densities[i] = Math.Max(
                         Densities[i] * Math.Exp(-dt / t_p),

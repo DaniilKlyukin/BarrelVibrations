@@ -37,6 +37,11 @@ public class VibrationSolver
     private double time;
     private double dt, dtPrevious, dt_2;
 
+    /// <summary>
+    /// Коэффициент демпфирования
+    /// </summary>
+    private double k;
+
     public bool Calculate { get; }
     public int Iteration { get; private set; }
 
@@ -256,6 +261,7 @@ public class VibrationSolver
         Wz = barrelGeometry.Wz;
         I = barrelGeometry.X.Length - 1;
         xs = barrelGeometry.X;
+        k = firingSystem.VibrationDampingCoefficient;
 
         if (firingSystem.BarrelMovements.Any())
             barrelMovementsSpline = CubicSpline.InterpolateAkima(
@@ -448,14 +454,17 @@ public class VibrationSolver
                     }
                     else
                     {
-                        A[i, i] = rho * F[i] / dt_2
+                        var du = VibrationXPrevious[i] / dt;
+                        var du2 = (2 * VibrationXPrevious[i] - VibrationXPrevious2[i]) / dt_2;
+
+                        A[i, i] = rho * F[i] * (1.0 / dt_2 + k / dt)
                             + E * (F[i] + F[i + 1]) / FastMath.Pow2(xs[i + 1] - xs[i])
                             + 2 * firingSystem.MovingPartsStiffness / (xs[i + 1] - xs[i])
                             + 2 * firingSystem.MovingPartsDamping / (dt * (xs[i + 1] - xs[i]));
 
                         A[i, i + 1] = -E * (F[i] + F[i + 1]) / FastMath.Pow2(xs[i + 1] - xs[i]);
 
-                        b[i] = rho * F[i] * (2 * VibrationXPrevious[i] - VibrationXPrevious2[i]) / dt_2
+                        b[i] = rho * F[i] * (du2 + k * du)
                             - 2 * p1[i] * S[i] / (xs[i + 1] - xs[i])
                             + 2 * firingSystem.MovingPartsDamping * VibrationXPrevious[i] / (dt * (xs[i + 1] - xs[i]))
                             - (3 * f1[i] + f1[i + 1]) / 4;
@@ -477,7 +486,8 @@ public class VibrationSolver
             }
             else
             {
-                var du = (2 * VibrationXPrevious[i] - VibrationXPrevious2[i]) / dt_2;
+                var du = VibrationXPrevious[i] / dt;
+                var du2 = (2 * VibrationXPrevious[i] - VibrationXPrevious2[i]) / dt_2;
 
                 var hR1 = xs[i + 1] - xs[i];
                 var hR1_2 = (xs[i + 1] - xs[i - 1]) / 2;
@@ -488,11 +498,11 @@ public class VibrationSolver
                 A[i, i - 1] = -E * FL1_2 / h;
 
                 A[i, i] = E * (FR1_2 / hR1 + FL1_2 / h)
-                          + hR1_2 * rho * F[i] / dt_2;
+                          + hR1_2 * rho * F[i] * (1.0 / dt_2 + k / dt);
 
                 A[i, i + 1] = -E * FR1_2 / hR1;
 
-                b[i] = hR1_2 * rho * F[i] * du - hR1_2 * f1[i];
+                b[i] = hR1_2 * rho * F[i] * (du2 + k * du) - hR1_2 * f1[i];
             }
         }
 
@@ -506,7 +516,8 @@ public class VibrationSolver
 
         for (var i = 0; i < I + 1; i++)
         {
-            var dv = (2 * VibrationYPrevious[i] - VibrationYPrevious2[i]) / dt_2;
+            var dv = VibrationYPrevious[i] / dt;
+            var dv2 = (2 * VibrationYPrevious[i] - VibrationYPrevious2[i]) / dt_2;
 
             if (i == 0 || barrel.FixationsAreas.Any(area => xs[i] >= area.From && xs[i] <= area.To))
             {
@@ -543,13 +554,13 @@ public class VibrationSolver
                           E * Jz[i] / (hR1 * h * hR1_2) +
                           E * Jz[i] / (hR1 * hR1 * hR1_2) -
                           fx[i] * (1.0 / hR1 + 1.0 / h) +
-                          hR1_2 * rho * F[i] / dt_2);
+                          hR1_2 * rho * F[i] * (1.0 / dt_2 + k / dt));
 
                 A[i, i + 1] = E * Jz[i] / (hR1 * hR1 * hR1_2) +
                                 E * Jz[i] / (h * hR1 * hR1_2) -
                                 fx[i] / hR1;
 
-                b[i] = hR1_2 * (f2[i] - rho * F[i] * dv);
+                b[i] = hR1_2 * (f2[i] - rho * F[i] * (dv2 + k * dv));
             }
             else if (i == I)
             {
@@ -563,9 +574,9 @@ public class VibrationSolver
                               E * Jz[i - 1] / (h * h * hL1_2);
 
                 A[i, i] = -(E * Jz[i - 1] / (h * h * hL1_2) +
-                            0.5 * h * rho * F[i] / dt_2);
+                            0.5 * h * rho * F[i] * (1.0 / dt_2 + k / dt));
 
-                b[i] = h * 0.5 * (f2[i] - rho * F[i] * dv);
+                b[i] = h * 0.5 * (f2[i] - rho * F[i] * (dv2 + k * dv));
             }
             else
             {
@@ -592,7 +603,7 @@ public class VibrationSolver
                           E * Jz[i] / (hR1 * hR1 * hR1_2) +
                           E * Jz[i + 1] / (hR1 * hR1 * hR3_2) -
                           fx[i] * (1.0 / hR1 + 1.0 / h) +
-                          hR1_2 * rho * F[i] / dt_2);
+                          hR1_2 * rho * F[i] * (1.0 / dt_2 + k / dt));
 
                 A[i, i + 1] = E * Jz[i + 1] / (hR1 * hR2 * hR3_2) +
                                 E * Jz[i + 1] / (hR1 * hR1 * hR3_2) +
@@ -602,7 +613,7 @@ public class VibrationSolver
 
                 A[i, i + 2] = -E * Jz[i + 1] / (hR1 * hR2 * hR3_2);
 
-                b[i] = hR1_2 * (f2[i] - rho * F[i] * dv);
+                b[i] = hR1_2 * (f2[i] - rho * F[i] * (dv2 + k * dv));
             }
         }
 
@@ -616,7 +627,8 @@ public class VibrationSolver
 
         for (var i = 0; i < I + 1; i++)
         {
-            var dw = (2 * VibrationZPrevious[i] - VibrationZPrevious2[i]) / dt_2;
+            var dw = VibrationZPrevious[i] / dt;
+            var dw2 = (2 * VibrationZPrevious[i] - VibrationZPrevious2[i]) / dt_2;
 
             if (i == 0 || barrel.FixationsAreas.Any(area => xs[i] >= area.From && xs[i] <= area.To))
             {
@@ -653,13 +665,13 @@ public class VibrationSolver
                           E * Jy[i] / (hR1 * h * hR1_2) +
                           E * Jy[i] / (hR1 * hR1 * hR1_2) -
                           fx[i] * (1.0 / hR1 + 1.0 / h) +
-                          hR1_2 * rho * F[i] / dt_2);
+                          hR1_2 * rho * F[i] * (1.0 / dt_2 + k / dt));
 
                 A[i, i + 1] = E * Jy[i] / (hR1 * hR1 * hR1_2) +
                                 E * Jy[i] / (h * hR1 * hR1_2) -
                                 fx[i] / hR1;
 
-                b[i] = hR1_2 * (f3[i] - rho * F[i] * dw);
+                b[i] = hR1_2 * (f3[i] - rho * F[i] * (dw2 + k * dw));
             }
             else if (i == I)
             {
@@ -673,9 +685,9 @@ public class VibrationSolver
                                 E * Jy[i - 1] / (h * h * hL1_2);
 
                 A[i, i] = -(E * Jy[i - 1] / (h * h * hL1_2) +
-                            0.5 * h * rho * F[i] / dt_2);
+                            0.5 * h * rho * F[i] * (1.0 / dt_2 + k / dt));
 
-                b[i] = h * 0.5 * (f3[i] - rho * F[i] * dw);
+                b[i] = h * 0.5 * (f3[i] - rho * F[i] * (dw2 + k * dw));
             }
             else
             {
@@ -702,7 +714,7 @@ public class VibrationSolver
                           E * Jy[i] / (hR1 * hR1 * hR1_2) +
                           E * Jy[i + 1] / (hR1 * hR1 * hR3_2) -
                           fx[i] * (1.0 / hR1 + 1.0 / h) +
-                          hR1_2 * rho * F[i] / dt_2);
+                          hR1_2 * rho * F[i] * (1.0 / dt_2 + k / dt));
 
                 A[i, i + 1] = E * Jy[i + 1] / (hR1 * hR2 * hR3_2) +
                                 E * Jy[i + 1] / (hR1 * hR1 * hR3_2) +
@@ -712,7 +724,7 @@ public class VibrationSolver
 
                 A[i, i + 2] = -E * Jy[i + 1] / (hR1 * hR2 * hR3_2);
 
-                b[i] = hR1_2 * (f3[i] - rho * F[i] * dw);
+                b[i] = hR1_2 * (f3[i] - rho * F[i] * (dw2 + k * dw));
             }
         }
 

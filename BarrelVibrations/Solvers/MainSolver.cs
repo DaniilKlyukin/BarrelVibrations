@@ -142,8 +142,8 @@ namespace BarrelVibrations.Solvers
 
         public void Initialize()
         {
-            ModelProperties.MainTimeStep = 1.0 / (1 << 17);
-            ModelProperties.StepsToSaveResults = 4;
+           // ModelProperties.MainTimeStep = 1.0 / (1 << 17);
+            //ModelProperties.StepsToSaveResults = 4;
 
             var avgInnerR = new double[Barrel.X.Length];
             var avgOuterR = new double[Barrel.X.Length];
@@ -372,8 +372,16 @@ namespace BarrelVibrations.Solvers
                     CurrentShotIndex++;
                 }
 
-                if (CurrentShotIndex > 0)
+                if (CurrentShotIndex > 0)                
                     InletBallisticSolver.SolveStep(ModelProperties.MainTimeStep);
+
+                /*if (time== ModelProperties.MainTimeStep)
+                {
+                    // TODO для ансис
+                    var header = "x, м\tp, Па\tT, K\ta, Вт/(м*К)\n";
+                    var rows = InletBallisticSolver.Pressures.Select((p, i) => $"{Barrel.X[i]}\t{p}\t{InletBallisticSolver.Temperatures[i]}\t{InletBallisticSolver.HeatTransfers[i]}").ToArray();
+                    File.WriteAllText($"Results\\inlet_{time:0.0000}.txt", header + string.Join("\n", rows));
+                }*/
 
                 var isShot = missileWasInBarrel && !InletBallisticSolver.MissileInBarrel;
                 var isSave = currentStepsToSave == ModelProperties.StepsToSaveResults || time + ModelProperties.MainTimeStep >= ModelProperties.EndTime;
@@ -457,8 +465,9 @@ namespace BarrelVibrations.Solvers
                     saveShotParameters(time);
 
                 if (isSave)
-                {
-                    /* var header = "x, м\tp, Па\tT, K\ta, Вт/(м*К)\n";
+                {/*
+                    // TODO для ансис
+                     var header = "x, м\tp, Па\tT, K\ta, Вт/(м*К)\n";
                      var rows = InletBallisticSolver.Pressures.Select((p, i) => $"{Barrel.X[i]}\t{p}\t{InletBallisticSolver.Temperatures[i]}\t{InletBallisticSolver.HeatTransfers[i]}").ToArray();
                      File.WriteAllText($"Results\\inlet_{time:0.0000}.txt", header + string.Join("\n", rows));*/
                     save(time);

@@ -84,6 +84,16 @@ namespace BarrelVibrations.ModelingObjects.FiringSystemFolder
         public bool IsMovingBarrel { get; set; }
 
         /// <summary>
+        /// Коэффициент демпфирования колебаний ствола
+        /// </summary>
+        [Browsable(true)]
+        [Category("Колебания")]
+        [Description("")]
+        [DisplayName("Коэффициент демпфирования колебаний ствола")]
+        [DataMember(Name = "Коэффициент демпфирования колебаний ствола")]
+        public double VibrationDampingCoefficient { get; set; }
+
+        /// <summary>
         /// Известные данные отката ствола, м
         /// </summary>
         [Browsable(true)]
