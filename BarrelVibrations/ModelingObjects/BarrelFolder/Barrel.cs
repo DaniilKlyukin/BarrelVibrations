@@ -766,6 +766,8 @@ namespace BarrelVibrations.ModelingObjects.BarrelFolder
                     Jz[i] += FastMath.Pow2(point.Y + Wy[i]) * df / points.Length; // Jz - при вращении вокруг оси Oy (вверх вниз)
                 }
             }
+
+            //умножить на 0.55 при учете неровностей
         }
 
         private Mesh calculateMesh(int i, double elementsSize)

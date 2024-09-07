@@ -47,7 +47,7 @@ namespace BarrelVibrations.ViewForms
                 "t, мс",
                 timeMoments.Mult(1e3),
                 "Uy, мм",
-                vibrations.BarrelEndYs.Mult(1e3))
+                vibrations.BarrelEndYs.Mult(1e3).Mult(2e2))
             {
                 AdditionalDrawMethod = drawShotsMethod
             });

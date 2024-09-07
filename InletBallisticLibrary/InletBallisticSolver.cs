@@ -111,8 +111,8 @@ namespace InletBallisticLibrary
                         ZArr[i] = x[PsiArr.Length + i];
                     }
 
-                    //Pressure = GetPFromExp(W, vsn, J0, J1, J2); //TODO эксперимент!!!
-                    Pressure = GetP(PsiArr, W, Vsn, J0); 
+                    Pressure = GetPFromExp(W, vsn, J0, J1, J2); //TODO эксперимент!!!
+                    //Pressure = GetP(PsiArr, W, Vsn, J0); 
                     Psn = GetPsn(Pressure, W, Vsn, J0, J1, J2);
                     Pkn = GetPkn(Psn, W, Vsn, J1);
                     Temperature = GetTemperature(Pressure, PsiArr, W);
@@ -147,8 +147,8 @@ namespace InletBallisticLibrary
                     var (j1, _) = Input.GetJ1(xsn, elementIntegrationSize, xsn, Xsn, J1Integral);
                     var (j2, _, _) = Input.GetJ2(xsn, elementIntegrationSize, Xsn, J2Integral, J2SubIntegral);
 
-                    //var p = GetPFromExp(W, vSn, j0, j1, j2);  // TODO эксперимент
-                    var p = GetP(currentPsi, W, vSn, j0);
+                    var p = GetPFromExp(W, vSn, j0, j1, j2);  // TODO эксперимент
+                   // var p = GetP(currentPsi, W, vSn, j0);
                     var p_sn = GetPsn(p, W, vSn, j0, j1, j2);
 
                     var equations = new double[initial.Length];
@@ -190,14 +190,14 @@ namespace InletBallisticLibrary
 
         public InletBallisticSolver(InletBallisticInput input, Environment environment, double[] meshXPoints)
         {
-            /*
+            
             // TODO эксперимент
-            var experiment = File.ReadAllLines("exps\\p1.txt").Select(r => r.Split("\t").Select(v => double.Parse(v)).ToArray()).ToArray();
+            var experiment = File.ReadAllLines("exps\\p3.txt").Select(r => r.Split("\t").Select(v => double.Parse(v)).ToArray()).ToArray();
             var tExp = experiment.Select(v => v[0] * 1e-3).ToArray();
             var pExp = experiment.Select(v => v[1] * 1e6).ToArray();
             expPknSpline = LinearSpline.Interpolate(tExp, pExp);
             // -------------------------------------------------
-            */
+            
             Environment = environment;
             Input = input;
             _meshXPoints = meshXPoints;
@@ -302,7 +302,7 @@ namespace InletBallisticLibrary
 
             return psn * (1 + w / Input.q * J1) + w * FastMath.Pow2(v) / volume * (0.5 - J1);
         }
-        /*
+        
         // TODO эксперимент -----------------------------------------------
         private LinearSpline expPknSpline;
         private double GetPFromExp(double volume, double v, double J0, double J1, double J2)
@@ -319,7 +319,7 @@ namespace InletBallisticLibrary
         }
 
         // --------------------------------------------------------
-        */
+        
 
         private double GetTemperature(double p, double[] psi, double volume)
         {
