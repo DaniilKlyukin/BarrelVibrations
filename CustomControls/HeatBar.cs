@@ -1,4 +1,5 @@
 ﻿using BasicLibraryWinForm;
+using BasicLibraryWinForm.ColorMap;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -127,7 +128,7 @@ namespace CustomControls
                 for (var x = 0; x < HeatMapPictureBox.Width; x++)
                 {
                     ((Bitmap)HeatMapPictureBox.Image).SetPixel(x, (int)(y + pictureBoxLabelMargin),
-                        Algebra.GetHeatColor(pictureBoxLabelHeight - 1 - y + pictureBoxLabelMargin, 0, pictureBoxLabelHeight + pictureBoxLabelMargin - 1));
+                        Rainbow.Map(pictureBoxLabelHeight - 1 - y + pictureBoxLabelMargin, 0, pictureBoxLabelHeight + pictureBoxLabelMargin - 1));
                 }
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Runtime.InteropServices;
 using BasicLibraryWinForm;
+using BasicLibraryWinForm.ColorMap;
 using CustomControls;
 using SharpGL;
 using SharpGL.Enumerations;
@@ -622,7 +623,7 @@ namespace Visualization.OpenGL
                 if (!surface.WithEdges)
                     continue;
 
-                var dn = 0 * surface.Normal;
+                var dn = 0.0001 * surface.Normal;
                 gl.Begin(BeginMode.LineLoop);
 
                 gl.Color(Color.FromArgb(38, 36, 36));
@@ -670,11 +671,12 @@ namespace Visualization.OpenGL
             }
             gl.End();
 
+
             edgeColor ??= Color.Black;
 
             gl.Color(edgeColor.Value.R / 255f, edgeColor.Value.G / 255f, edgeColor.Value.B / 255f);
             gl.Begin(BeginMode.LineLoop);
-
+            gl.LineWidth(VisualizationProperties.SurfacesEdges);
             foreach (var vertex in vertices)
             {
                 gl.Vertex(vertex);
@@ -850,7 +852,7 @@ namespace Visualization.OpenGL
                 {
                     if (colorSource.ContainsKey(coloredPoint.Point.Id))
                     {
-                        coloredPoint.Color = Algebra.GetHeatColor(
+                        coloredPoint.Color = Rainbow.Map(
                             colorSource[coloredPoint.Point.Id] * valueMultiplier,
                             min * valueMultiplier,
                             max * valueMultiplier);
@@ -891,7 +893,7 @@ namespace Visualization.OpenGL
                 {
                     if (colorSource.ContainsKey(coloredPoint.Point.Id))
                     {
-                        coloredPoint.Color = Algebra.GetHeatColor(
+                        coloredPoint.Color = Rainbow.Map(
                             colorSource[coloredPoint.Point.Id] * valueMultiplier,
                             min * valueMultiplier,
                             max * valueMultiplier);

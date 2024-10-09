@@ -142,7 +142,7 @@ namespace BarrelVibrations.Solvers
 
         public void Initialize()
         {
-           // ModelProperties.MainTimeStep = 1.0 / (1 << 17);
+            // ModelProperties.MainTimeStep = 1.0 / (1 << 17);
             //ModelProperties.StepsToSaveResults = 4;
 
             var avgInnerR = new double[Barrel.X.Length];
@@ -354,6 +354,8 @@ namespace BarrelVibrations.Solvers
 
             var innerRs = Barrel.InnerD.Select(d => d / 2).ToArray();
 
+            var iteration = 0;
+
             while (true)
             {
                 var shot = shotsQueue.Any() ? shotsQueue.Peek() : null;
@@ -372,7 +374,7 @@ namespace BarrelVibrations.Solvers
                     CurrentShotIndex++;
                 }
 
-                if (CurrentShotIndex > 0)                
+                if (CurrentShotIndex > 0)
                     InletBallisticSolver.SolveStep(ModelProperties.MainTimeStep);
 
                 /*if (time== ModelProperties.MainTimeStep)
@@ -464,16 +466,18 @@ namespace BarrelVibrations.Solvers
                 if (isShot)
                     saveShotParameters(time);
 
+                //if (iteration % 100 == 0 && time <= 1e-2 || iteration % 1000 == 0 && time <= 4e-2 || iteration % 10000 == 0)
                 if (isSave)
                 {/*
                     // TODO для ансис
-                     var header = "x, м\tp, Па\tT, K\ta, Вт/(м*К)\n";
-                     var rows = InletBallisticSolver.Pressures.Select((p, i) => $"{Barrel.X[i]}\t{p}\t{InletBallisticSolver.Temperatures[i]}\t{InletBallisticSolver.HeatTransfers[i]}").ToArray();
-                     File.WriteAllText($"Results\\inlet_{time:0.0000}.txt", header + string.Join("\n", rows));*/
+                    var header = "x, м\tp, Па\tT, K\ta, Вт/(м*К)\n";
+                    var rows = InletBallisticSolver.Pressures.Select((p, i) => $"{Barrel.X[i]}\t{p}\t{InletBallisticSolver.Temperatures[i]}\t{InletBallisticSolver.HeatTransfers[i]}").ToArray();
+                    File.WriteAllText($"Results\\inlet_{time:0.0000}.txt", header + string.Join("\n", rows));
+                    */
                     save(time);
                     currentStepsToSave = 0;
                 }
-
+                iteration++;
                 if (isShow)
                 {
                     currentStepsToShow = 0;

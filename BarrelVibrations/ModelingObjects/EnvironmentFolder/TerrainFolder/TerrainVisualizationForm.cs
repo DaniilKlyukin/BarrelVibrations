@@ -1,5 +1,6 @@
 ﻿using BarrelVibrations.ModelingObjects.EnvironmentFolder.TerrainFolder;
 using BasicLibraryWinForm;
+using BasicLibraryWinForm.ColorMap;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,7 +53,7 @@ namespace BarrelVibrations.ModelingObjects.EnvironmentFolder
 
                     var y = terrain.GetAltitude(xTerrain, zTerrain);
 
-                    bmp.SetPixel(x, z, Algebra.GetHeatColor(y, altitudeMin, altitudeMax));
+                    bmp.SetPixel(x, z, Rainbow.Map(y, altitudeMin, altitudeMax));
                 }
             }
         }

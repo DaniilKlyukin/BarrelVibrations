@@ -433,7 +433,7 @@ namespace BasicLibraryWinForm
 
             return Math.Sqrt(dx * dx + dy * dy + dz * dz);
         }
-
+        
         public static Color GetHeatColor(
            double value, double blueValue, double redValue)
         {

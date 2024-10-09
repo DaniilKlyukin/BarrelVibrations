@@ -1,5 +1,6 @@
 ﻿using BarrelVibrations.ModelingObjects.EnvironmentFolder.TerrainFolder;
 using BasicLibraryWinForm;
+using BasicLibraryWinForm.ColorMap;
 using CustomControls;
 using ScottPlot.Plottable;
 using System.Data;
@@ -83,7 +84,7 @@ namespace BarrelVibrations.ModelingObjects.EnvironmentFolder
 
                     var value = interpolation(xTerrain, y, zTerrain);
 
-                    bmp.SetPixel(x, z, Algebra.GetHeatColor(value, min, max));
+                    bmp.SetPixel(x, z, Rainbow.Map(value, min, max));
                 }
             }
         }
