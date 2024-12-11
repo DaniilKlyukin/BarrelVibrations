@@ -42,12 +42,14 @@ namespace BarrelVibrations.ViewForms
                 AdditionalDrawMethod = drawShotsMethod
             });
 
+            var v0 = vibrations.BarrelEndYs.First();
+
             data.Add(new SingleArrayTable(
                 "Перемещения дульного среза по Oy",
                 "t, мс",
                 timeMoments.Mult(1e3),
-                "Uy, мм",
-                vibrations.BarrelEndYs.Mult(1e3).Mult(2e2))
+                "Uy, мкм",
+                vibrations.BarrelEndYs.Select(v => (v - v0) * 1e6))
             {
                 AdditionalDrawMethod = drawShotsMethod
             });

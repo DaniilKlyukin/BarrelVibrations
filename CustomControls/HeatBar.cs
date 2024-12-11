@@ -1,6 +1,7 @@
 ﻿using BasicLibraryWinForm;
 using BasicLibraryWinForm.ColorMap;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -19,7 +20,9 @@ namespace CustomControls
         private double pictureBoxLabelHeight => HeatMapPictureBox.Height * 0.9;
         private double pictureBoxLabelMargin => (HeatMapPictureBox.Height - pictureBoxLabelHeight) / 2;
 
-        private readonly Label[] _colorMapValuesLabels = new Label[11];
+        private const int LABELS_COUNT = 10;
+
+        private readonly Label[] _colorMapValuesLabels = new Label[LABELS_COUNT];
 
         #region Properties
         [Description("Measure units"), Category("Appearance")]
@@ -73,7 +76,7 @@ namespace CustomControls
 
         public HeatBar()
         {
-            _colorMapValuesLabels = new Label[11];
+            _colorMapValuesLabels = new Label[LABELS_COUNT];
 
             for (var i = 0; i < _colorMapValuesLabels.Length; i++)
             {
@@ -101,7 +104,7 @@ namespace CustomControls
             {
                 var y = pictureBoxLabelHeight - i * dy;
                 var value = Max - (Max - Min) * y / pictureBoxLabelHeight;
-                _colorMapValuesLabels[i].Text = $@"{value:E3}";
+                _colorMapValuesLabels[i].Text = value.ToString("0.#####");
             }
         }
 
@@ -118,17 +121,39 @@ namespace CustomControls
 
         private void DrawHeatMapBitmap()
         {
+            SetValuesLabels();
+
+            const int max = 255, min = 178;
+
+            var colors = new List<Color>
+            {
+            Color.FromArgb(0, 0, max),   // Синий
+            Color.FromArgb(0, min, max), // Синий-Голубой
+            Color.FromArgb(0, max, max), // Голубой
+            Color.FromArgb(0, max, min), // Голубой-Зелёный
+            Color.FromArgb(0, max, 0), // Зелёный
+            Color.FromArgb(min, max, 0), // Лайм
+            Color.FromArgb(max, max, 0), // Желтый
+            Color.FromArgb(max, min, 0),     // Оранжевый
+            Color.FromArgb(max, 0, 0)     // Красный
+            };
+
             if (HeatMapPictureBox.Height <= 0 || HeatMapPictureBox.Width <= 0)
                 return;
 
             HeatMapPictureBox.Image = new Bitmap(HeatMapPictureBox.Width, HeatMapPictureBox.Height);
 
+            var labelDy = pictureBoxLabelHeight / (_colorMapValuesLabels.Length - 1);
+
             for (var y = 0; y < pictureBoxLabelHeight; y++)
             {
                 for (var x = 0; x < HeatMapPictureBox.Width; x++)
                 {
-                    ((Bitmap)HeatMapPictureBox.Image).SetPixel(x, (int)(y + pictureBoxLabelMargin),
-                        Rainbow.Map(pictureBoxLabelHeight - 1 - y + pictureBoxLabelMargin, 0, pictureBoxLabelHeight + pictureBoxLabelMargin - 1));
+                    var yc = (int)(y / labelDy);
+
+                    var color = colors[^(yc+1)];
+
+                    ((Bitmap)HeatMapPictureBox.Image).SetPixel(x, (int)(y + pictureBoxLabelMargin), color);
                 }
             }
         }

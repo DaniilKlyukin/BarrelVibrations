@@ -334,6 +334,20 @@ namespace BarrelVibrations
                             var pressure = 1.0;
                             var sectionIndex = VisualizationProperties.SelectedSection.Index;
                             var r1 = MainSolver.Barrel.InnerD[sectionIndex] / 2;
+                            var F = MainSolver.Barrel.F[sectionIndex];
+                            var rEq = Math.Sqrt(F / Math.PI + FastMath.Pow2(r1));
+
+                            var rBoards = surfaces.SelectMany(s => s.Points).Select(p =>
+                            {
+                                var a = MyPoint.GetAngle0_360(p.Z, p.Y, 1, 0);
+                                var boardPoint = MainSolver.Barrel.GetBoardCoordinate(sectionIndex, a);
+                                return Math.Sqrt(boardPoint.Y * boardPoint.Y + boardPoint.Z * boardPoint.Z);
+                            }).ToArray();
+
+                            var rMin = rBoards.Min();
+                            var rMax = rBoards.Max();
+
+                            var dr = Math.Clamp(rMax / rMin - 1, 0, 1);
 
                             foreach (var surface in surfaces)
                             {
@@ -341,14 +355,20 @@ namespace BarrelVibrations
                                 {
                                     var p = coloredPoint.Point;
                                     var a = MyPoint.GetAngle0_360(p.Z, p.Y, 1, 0);
-                                    var aGrad = a * 180 / Math.PI;
                                     var boardPoint = MainSolver.Barrel.GetBoardCoordinate(sectionIndex, a);
 
                                     var r2 = Math.Sqrt(boardPoint.Y * boardPoint.Y + boardPoint.Z * boardPoint.Z);
+
                                     var r = Math.Sqrt(p.Y * p.Y + p.Z * p.Z);
 
                                     var srr = pressure * FastMath.Pow2(r1) * (1 - FastMath.Pow2(r2 / r)) / (FastMath.Pow2(r2) - FastMath.Pow2(r1));
                                     var stt = pressure * FastMath.Pow2(r1) * (1 + FastMath.Pow2(r2 / r)) / (FastMath.Pow2(r2) - FastMath.Pow2(r1));
+
+                                    //var stt = pressure * FastMath.Pow2(r1) * (1 + FastMath.Pow2(rEq / r)) / (FastMath.Pow2(rEq) - FastMath.Pow2(r1));
+                                    //var stt_min = pressure * FastMath.Pow2(r1) * (1 + FastMath.Pow2(rEq / rMax)) / (FastMath.Pow2(rEq) - FastMath.Pow2(r1));
+                                    //var stt_max = pressure * FastMath.Pow2(r1) * (1 + FastMath.Pow2(rEq / rMin)) / (FastMath.Pow2(rEq) - FastMath.Pow2(r1));
+                                    //var stt_norm = 2 * (stt - stt_min) / (stt_max - stt_min) - 1;
+                                    //stt += stt_min * stt_norm * dr;
 
                                     if (source.ContainsKey(p.Id))
                                         continue;

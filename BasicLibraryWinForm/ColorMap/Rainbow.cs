@@ -74,9 +74,9 @@ namespace BasicLibraryWinForm.ColorMap
                 // Переход между цветами
                 if (progress <= ranges[i].To.Value && progress >= ranges[i].From.Value)
                 {
-                    var R = (int)Algebra.GetValueAtLine(progress, l, ranges[i].From.Color.R, r, ranges[i].To.Color.R);
-                    var G = (int)Algebra.GetValueAtLine(progress, l, ranges[i].From.Color.G, r, ranges[i].To.Color.G);
-                    var B = (int)Algebra.GetValueAtLine(progress, l, ranges[i].From.Color.B, r, ranges[i].To.Color.B);
+                    var R = (int)(Algebra.GetValueAtLine(progress, l, ranges[i].From.Color.R, r, ranges[i].To.Color.R) * 0.67);
+                    var G = (int)(Algebra.GetValueAtLine(progress, l, ranges[i].From.Color.G, r, ranges[i].To.Color.G) * 0.67);
+                    var B = (int)(Algebra.GetValueAtLine(progress, l, ranges[i].From.Color.B, r, ranges[i].To.Color.B) * 0.67);
 
                     return Color.FromArgb(R, G, B);
                 }
