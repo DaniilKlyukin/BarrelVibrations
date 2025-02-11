@@ -3,7 +3,9 @@ using BarrelVibrations.ModelingObjects.MissileFolder;
 using BarrelVibrations.Solvers.Solutions;
 using BasicLibraryWinForm;
 using BasicLibraryWinForm.Minimization;
+using MathNet.Numerics.Financial;
 using MathNet.Numerics.Interpolation;
+using MathNet.Numerics.Statistics;
 using Environment = BarrelVibrations.ModelingObjects.EnvironmentFolder.Environment;
 using Point = BasicLibraryWinForm.PointFolder.Point;
 
@@ -547,5 +549,20 @@ public class OutletBallisticSolver
         }
 
         return 0;
+    }
+
+    public static void CalculateProbableDeviations(double[] zs, double[] ys, out double devZ, out double devY)
+    {
+        devZ = CalculateProbableDeviation(zs);
+        devY = CalculateProbableDeviation(ys);
+    }
+
+    private static double CalculateProbableDeviation(double[] values)
+    {
+        var median = values.Median();
+
+        var deviations = values.Select(v => Math.Abs(v - median)).ToArray();
+
+        return deviations.Median();
     }
 }

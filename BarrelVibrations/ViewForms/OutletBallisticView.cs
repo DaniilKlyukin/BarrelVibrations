@@ -301,12 +301,13 @@ public partial class OutletBallisticView : Form
         var ys = hitpoints.Select(p => p.Y).ToArray();
 
         var spread = OutletBallisticSolver.CalculatePlaneSpread(zs, ys, out var spreadCenterZ, out var spreadCenterY);
+        OutletBallisticSolver.CalculateProbableDeviations(zs, ys, out var devZ, out var devY);
 
-        FillHitPointsDataGrid(hitpoints, spread);
+        FillHitPointsDataGrid(hitpoints, spread, devZ, devY);
         DrawSpread(zs, ys, spreadCenterZ, spreadCenterY, spread);
     }
 
-    private void FillHitPointsDataGrid(IEnumerable<Point> hitpoints, double spread)
+    private void FillHitPointsDataGrid(IEnumerable<Point> hitpoints, double spread, double devZ, double devY)
     {
         hitpointsDataGridView.Rows.Clear();
         var i = 0;
@@ -330,6 +331,15 @@ public partial class OutletBallisticView : Form
         hitpointsDataGridView.Rows.Add(
             "Разброс, м:",
             spread.ToString("0.000"));
+
+        hitpointsDataGridView.Rows.Add(
+            "Срединное отклонение",
+            "по Y, м",
+            "по Z, м");
+        hitpointsDataGridView.Rows.Add(
+            string.Empty,
+            devY.ToString("0.000"),
+            devZ.ToString("0.000"));
     }
 
     private void vibrationsCheckBox_CheckedChanged(object sender, EventArgs e)

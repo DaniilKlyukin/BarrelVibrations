@@ -28,185 +28,169 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox = new System.Windows.Forms.GroupBox();
-            this.hitpointsDataGridView = new System.Windows.Forms.DataGridView();
-            this.distanceNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.shotComboBox = new System.Windows.Forms.ComboBox();
-            this.listBox = new System.Windows.Forms.ListBox();
-            this.SaveButton = new System.Windows.Forms.Button();
-            this.CopyButton = new System.Windows.Forms.Button();
-            this.ShotColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.XColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.YColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ZColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.hitpointsDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.distanceNumericUpDown)).BeginInit();
-            this.SuspendLayout();
+            groupBox = new GroupBox();
+            hitpointsDataGridView = new DataGridView();
+            ShotColumn = new DataGridViewTextBoxColumn();
+            XColumn = new DataGridViewTextBoxColumn();
+            YColumn = new DataGridViewTextBoxColumn();
+            ZColumn = new DataGridViewTextBoxColumn();
+            distanceNumericUpDown = new NumericUpDown();
+            label2 = new Label();
+            shotComboBox = new ComboBox();
+            listBox = new ListBox();
+            SaveButton = new Button();
+            CopyButton = new Button();
+            groupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)hitpointsDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)distanceNumericUpDown).BeginInit();
+            SuspendLayout();
             // 
             // groupBox
             // 
-            this.groupBox.Controls.Add(this.hitpointsDataGridView);
-            this.groupBox.Controls.Add(this.distanceNumericUpDown);
-            this.groupBox.Controls.Add(this.label2);
-            this.groupBox.Controls.Add(this.shotComboBox);
-            this.groupBox.Controls.Add(this.listBox);
-            this.groupBox.Controls.Add(this.SaveButton);
-            this.groupBox.Controls.Add(this.CopyButton);
-            this.groupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox.Location = new System.Drawing.Point(0, 0);
-            this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(752, 785);
-            this.groupBox.TabIndex = 5;
-            this.groupBox.TabStop = false;
-            this.groupBox.Text = "Название";
+            groupBox.Controls.Add(hitpointsDataGridView);
+            groupBox.Controls.Add(distanceNumericUpDown);
+            groupBox.Controls.Add(label2);
+            groupBox.Controls.Add(shotComboBox);
+            groupBox.Controls.Add(listBox);
+            groupBox.Controls.Add(SaveButton);
+            groupBox.Controls.Add(CopyButton);
+            groupBox.Dock = DockStyle.Fill;
+            groupBox.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox.Location = new Point(0, 0);
+            groupBox.Name = "groupBox";
+            groupBox.Size = new Size(752, 785);
+            groupBox.TabIndex = 5;
+            groupBox.TabStop = false;
+            groupBox.Text = "Название";
             // 
             // hitpointsDataGridView
             // 
-            this.hitpointsDataGridView.AllowUserToAddRows = false;
-            this.hitpointsDataGridView.AllowUserToDeleteRows = false;
-            this.hitpointsDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.hitpointsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.hitpointsDataGridView.ColumnHeadersVisible = false;
-            this.hitpointsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ShotColumn,
-            this.XColumn,
-            this.YColumn,
-            this.ZColumn});
-            this.hitpointsDataGridView.Location = new System.Drawing.Point(6, 339);
-            this.hitpointsDataGridView.Name = "hitpointsDataGridView";
-            this.hitpointsDataGridView.ReadOnly = true;
-            this.hitpointsDataGridView.RowHeadersVisible = false;
-            this.hitpointsDataGridView.RowTemplate.Height = 25;
-            this.hitpointsDataGridView.Size = new System.Drawing.Size(740, 443);
-            this.hitpointsDataGridView.TabIndex = 15;
-            // 
-            // distanceNumericUpDown
-            // 
-            this.distanceNumericUpDown.DecimalPlaces = 2;
-            this.distanceNumericUpDown.Location = new System.Drawing.Point(181, 307);
-            this.distanceNumericUpDown.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.distanceNumericUpDown.Name = "distanceNumericUpDown";
-            this.distanceNumericUpDown.Size = new System.Drawing.Size(117, 26);
-            this.distanceNumericUpDown.TabIndex = 8;
-            this.distanceNumericUpDown.Value = new decimal(new int[] {
-            1500,
-            0,
-            0,
-            0});
-            this.distanceNumericUpDown.ValueChanged += new System.EventHandler(this.distanceNumericUpDown_ValueChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 307);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(164, 19);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Расстояние до цели, м:";
-            // 
-            // shotComboBox
-            // 
-            this.shotComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.shotComboBox.FormattingEnabled = true;
-            this.shotComboBox.Location = new System.Drawing.Point(634, 105);
-            this.shotComboBox.Name = "shotComboBox";
-            this.shotComboBox.Size = new System.Drawing.Size(112, 27);
-            this.shotComboBox.TabIndex = 4;
-            this.shotComboBox.SelectedIndexChanged += new System.EventHandler(this.shotComboBox_SelectedIndexChanged);
-            // 
-            // listBox
-            // 
-            this.listBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox.FormattingEnabled = true;
-            this.listBox.ItemHeight = 19;
-            this.listBox.Location = new System.Drawing.Point(6, 25);
-            this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(620, 270);
-            this.listBox.TabIndex = 1;
-            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
-            // 
-            // SaveButton
-            // 
-            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(634, 65);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(112, 34);
-            this.SaveButton.TabIndex = 3;
-            this.SaveButton.Text = "Сохранить";
-            this.SaveButton.UseVisualStyleBackColor = true;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
-            // 
-            // CopyButton
-            // 
-            this.CopyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CopyButton.Location = new System.Drawing.Point(634, 25);
-            this.CopyButton.Name = "CopyButton";
-            this.CopyButton.Size = new System.Drawing.Size(112, 34);
-            this.CopyButton.TabIndex = 2;
-            this.CopyButton.Text = "Скопировать";
-            this.CopyButton.UseVisualStyleBackColor = true;
-            this.CopyButton.Click += new System.EventHandler(this.CopyButton_Click);
+            hitpointsDataGridView.AllowUserToAddRows = false;
+            hitpointsDataGridView.AllowUserToDeleteRows = false;
+            hitpointsDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            hitpointsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            hitpointsDataGridView.ColumnHeadersVisible = false;
+            hitpointsDataGridView.Columns.AddRange(new DataGridViewColumn[] { ShotColumn, XColumn, YColumn, ZColumn });
+            hitpointsDataGridView.Location = new Point(6, 339);
+            hitpointsDataGridView.Name = "hitpointsDataGridView";
+            hitpointsDataGridView.ReadOnly = true;
+            hitpointsDataGridView.RowHeadersVisible = false;
+            hitpointsDataGridView.RowTemplate.Height = 25;
+            hitpointsDataGridView.Size = new Size(740, 443);
+            hitpointsDataGridView.TabIndex = 15;
             // 
             // ShotColumn
             // 
-            this.ShotColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ShotColumn.HeaderText = "Выстрел";
-            this.ShotColumn.MinimumWidth = 100;
-            this.ShotColumn.Name = "ShotColumn";
-            this.ShotColumn.ReadOnly = true;
-            this.ShotColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            ShotColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            ShotColumn.HeaderText = "Выстрел";
+            ShotColumn.MinimumWidth = 100;
+            ShotColumn.Name = "ShotColumn";
+            ShotColumn.ReadOnly = true;
+            ShotColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // XColumn
             // 
-            this.XColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.XColumn.HeaderText = "X, м";
-            this.XColumn.Name = "XColumn";
-            this.XColumn.ReadOnly = true;
-            this.XColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.XColumn.Width = 5;
+            XColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            XColumn.HeaderText = "X, м";
+            XColumn.Name = "XColumn";
+            XColumn.ReadOnly = true;
+            XColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+            XColumn.Width = 5;
             // 
             // YColumn
             // 
-            this.YColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.YColumn.HeaderText = "Y, м";
-            this.YColumn.Name = "YColumn";
-            this.YColumn.ReadOnly = true;
-            this.YColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.YColumn.Width = 5;
+            YColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            YColumn.HeaderText = "Y, м";
+            YColumn.Name = "YColumn";
+            YColumn.ReadOnly = true;
+            YColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+            YColumn.Width = 5;
             // 
             // ZColumn
             // 
-            this.ZColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ZColumn.HeaderText = "Z, м";
-            this.ZColumn.Name = "ZColumn";
-            this.ZColumn.ReadOnly = true;
-            this.ZColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ZColumn.Width = 5;
+            ZColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            ZColumn.HeaderText = "Z, м";
+            ZColumn.Name = "ZColumn";
+            ZColumn.ReadOnly = true;
+            ZColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+            ZColumn.Width = 5;
+            // 
+            // distanceNumericUpDown
+            // 
+            distanceNumericUpDown.DecimalPlaces = 2;
+            distanceNumericUpDown.Location = new Point(181, 307);
+            distanceNumericUpDown.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            distanceNumericUpDown.Name = "distanceNumericUpDown";
+            distanceNumericUpDown.Size = new Size(117, 26);
+            distanceNumericUpDown.TabIndex = 8;
+            distanceNumericUpDown.Value = new decimal(new int[] { 1500, 0, 0, 0 });
+            distanceNumericUpDown.ValueChanged += distanceNumericUpDown_ValueChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(11, 307);
+            label2.Name = "label2";
+            label2.Size = new Size(164, 19);
+            label2.TabIndex = 7;
+            label2.Text = "Расстояние до цели, м:";
+            // 
+            // shotComboBox
+            // 
+            shotComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            shotComboBox.FormattingEnabled = true;
+            shotComboBox.Location = new Point(634, 105);
+            shotComboBox.Name = "shotComboBox";
+            shotComboBox.Size = new Size(112, 27);
+            shotComboBox.TabIndex = 4;
+            shotComboBox.SelectedIndexChanged += shotComboBox_SelectedIndexChanged;
+            // 
+            // listBox
+            // 
+            listBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            listBox.FormattingEnabled = true;
+            listBox.ItemHeight = 19;
+            listBox.Location = new Point(6, 25);
+            listBox.Name = "listBox";
+            listBox.Size = new Size(620, 270);
+            listBox.TabIndex = 1;
+            listBox.SelectedIndexChanged += listBox_SelectedIndexChanged;
+            // 
+            // SaveButton
+            // 
+            SaveButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SaveButton.Location = new Point(634, 65);
+            SaveButton.Name = "SaveButton";
+            SaveButton.Size = new Size(112, 34);
+            SaveButton.TabIndex = 3;
+            SaveButton.Text = "Сохранить";
+            SaveButton.UseVisualStyleBackColor = true;
+            SaveButton.Click += SaveButton_Click;
+            // 
+            // CopyButton
+            // 
+            CopyButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            CopyButton.Location = new Point(634, 25);
+            CopyButton.Name = "CopyButton";
+            CopyButton.Size = new Size(112, 34);
+            CopyButton.TabIndex = 2;
+            CopyButton.Text = "Скопировать";
+            CopyButton.UseVisualStyleBackColor = true;
+            CopyButton.Click += CopyButton_Click;
             // 
             // OutletBallisticView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 785);
-            this.Controls.Add(this.groupBox);
-            this.Name = "OutletBallisticView";
-            this.Text = "Внешняя баллистика";
-            this.groupBox.ResumeLayout(false);
-            this.groupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.hitpointsDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.distanceNumericUpDown)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(752, 785);
+            Controls.Add(groupBox);
+            Name = "OutletBallisticView";
+            Text = "Внешняя баллистика";
+            groupBox.ResumeLayout(false);
+            groupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)hitpointsDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)distanceNumericUpDown).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
