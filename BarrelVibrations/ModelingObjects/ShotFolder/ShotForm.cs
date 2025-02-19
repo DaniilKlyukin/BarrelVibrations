@@ -93,22 +93,33 @@ namespace BarrelVibrations.ModelingObjects.ShotFolder
         private void SetShotsButton_Click(object sender, EventArgs e)
         {
             var shotsCount = (int)shotsCountNumericUpDown.Value;
-            var interval = (double)shotsIntervalNumericUpDown.Value;
+            var seriesCount = (int)seriesCountNumericUpDown.Value;
+
+            var shotsInterval = (double)shotsIntervalNumericUpDown.Value;
+            var seriesInterval = (double)seriesIntervalNumericUpDown.Value;
+
             var spreadPcnt = (double)shotTimeSpreadNumericUpDown.Value;
 
-            var t0 = -interval;
+            var t0 = 0.0;
 
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
                 if (row.Cells[0].Value != null)
-                    t0 = double.Parse(row.Cells[0].Value.ToString());
+                    t0 = double.Parse(row.Cells[0].Value.ToString()) + seriesInterval;
             }
 
-            for (var i = 0; i < shotsCount; i++)
+            var spreadRange = shotsInterval * spreadPcnt / 100;
+
+            for (int i = 0; i < seriesCount; i++)
             {
-                var dt = interval * spreadPcnt / 100;
-                var spreadTime = i == 0 ? 0 : Algebra.GetRandomValue(-dt, dt);
-                dataGridView.Rows.Add((t0 + (i + 1) * interval + spreadTime).ToString(), ammo[0].Id);
+                for (var j = 0; j < shotsCount; j++)
+                {
+                    var spreadTime = j == 0 ? 0 : Algebra.GetRandomValue(-spreadRange, spreadRange);
+
+                    var shotTime = t0 + (i * (seriesInterval + shotsInterval * (shotsCount-1))) + j * shotsInterval + spreadTime;
+
+                    dataGridView.Rows.Add(shotTime.ToString("0.########"), ammo[0].Id);
+                }
             }
         }
     }
