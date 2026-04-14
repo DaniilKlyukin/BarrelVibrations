@@ -30,3 +30,57 @@
 1.  **FEM (Метод конечных элементов):** построение матриц жесткости и масс для различных типов элементов (Triangle, Quad).
 2.  **Сплайн-интерполяция:** использование кубических сплайнов для аппроксимации характеристик материалов и таблиц метеоданных.
 3.  **Аэродинамика:** расчет коэффициентов лобового сопротивления на основе регрессионных моделей.
+
+<p align="center">
+  <img width="90%" src="https://github.com/user-attachments/assets/43f5d76e-209e-4efc-8e47-50aa1cf23157" alt="Главное окно ПК">
+  <br>
+  <em>Рисунок – Главное окно ПК</em>
+</p>
+
+<br>
+
+<p align="center">
+  <img width="90%" src="https://github.com/user-attachments/assets/c8b7ea05-3ff7-4f6a-bf77-f3966700daca" alt="Главное окно ПК с некольцевым стволом">
+  <br>
+  <em>Рисунок – Главное окно ПК со стволом некольцевого сечения</em>
+</p>
+
+<br>
+
+<p align="center">
+  <img width="35%" src="https://github.com/user-attachments/assets/411e664d-6dbf-4fb9-abc1-293f6908e7dd" alt="Дульный срез">
+  <br>
+  <em>Рисунок – Дульный срез с конечно-элементной сеткой</em>
+</p>
+
+<br>
+
+<p align="center">
+  <img width="60%" src="https://github.com/user-attachments/assets/58e81e5d-a271-487b-a547-99ee6eac7c87" alt="Поле перемещений">
+  <br>
+  <em>Рисунок – Отображение поля перемещений на стволе</em>
+</p>
+
+<br>
+
+<p align="center">
+  <img width="70%" src="https://github.com/user-attachments/assets/e42e458a-fe19-40de-b01e-639694faf4bc" alt="Напряжения в кольцевом сечении">
+  <br>
+  <em>Рисунок – Напряжения в кольцевом сечении ствола</em>
+</p>
+
+<br>
+
+<p align="center">
+  <img width="70%" src="https://github.com/user-attachments/assets/832fc99e-f721-4bcb-820d-11955b9baa6d" alt="Напряжения в некольцевом сечении">
+  <br>
+  <em>Рисунок – Напряжения в некольцевом сечении ствола</em>
+</p>
+
+<br>
+
+<p align="center">
+  <img width="70%" src="https://github.com/user-attachments/assets/f674fe77-3465-423c-819a-98e3be32cded" alt="Отображение разброса снарядов в программе">
+  <br>
+  <em>Рисунок – Отображение разброса снарядов в программе</em>
+</p>
