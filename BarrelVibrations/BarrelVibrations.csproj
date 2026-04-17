@@ -32,10 +32,12 @@
 
   <ItemGroup>
     <Reference Include="GMsh.Net">
-      <HintPath>..\GMSHDLL\GMsh.Net.dll</HintPath>
+      <HintPath>..\GMsh.Net.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnsafeEx">
-      <HintPath>..\GMSHDLL\UnsafeEx.dll</HintPath>
+      <HintPath>..\UnsafeEx.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
 
